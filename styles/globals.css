@@ -5,7 +5,7 @@
 /* html, body,heading */
 @layer base {
 	body {
-		@apply bg-[#141414] text-white;
+		@apply bg-[#141414] text-white !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-red-600;
 	}
 
 	header {
@@ -14,7 +14,7 @@
 }
 
 /* px is left and right whereas py is top and bottom */
-
+/* exclamation means important */
 /* custom className */
 @layer components {
 	.headerLink {
