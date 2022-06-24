@@ -4,6 +4,7 @@ import { modalState } from "../atoms/modalAtom";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import Modal from "../components/Modal";
+import Plans from "../components/Plans";
 import Row from "../components/Row";
 import useAuth from "../hooks/useAuth";
 import { Movie } from "../typings";
@@ -32,9 +33,12 @@ const Home = ({
 }: Props) => {
 	const { loading } = useAuth();
 	const showModal = useRecoilValue(modalState);
-	if (loading) {
+	const subscription = false;
+	if (loading || subscription === null) {
 		return null;
 	}
+
+	if (!subscription) return <Plans />;
 	return (
 		<div
 			className={`relative h-screen bg-gradient-to-b lg:h-[140vh] ${
