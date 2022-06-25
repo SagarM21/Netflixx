@@ -4,6 +4,7 @@ import Link from "next/link";
 import useAuth from "../hooks/useAuth";
 import { Product } from "@stripe/firestore-stripe-payments";
 import Table from "./Table";
+import { useState } from "react";
 
 interface Props {
 	products: Product[];
@@ -11,6 +12,7 @@ interface Props {
 
 function Plans({ products }: Props) {
 	const { logout } = useAuth();
+	const [selectedPlan, setSelectedPlan] = useState<Product | null>(products[0]);
 	return (
 		<div>
 			<Head>
@@ -58,13 +60,19 @@ function Plans({ products }: Props) {
 					<div className='flex w-full items-center justify-center self-end md:w-3/5'>
 						{/* PLANS */}
 						{products.map((product) => (
-							<div key={product.id} className='planBox'>
+							<div
+								key={product.id}
+								className={`planBox  ${
+									selectedPlan?.id === product.id ? "opacity-100" : "opacity-60"
+								}`}
+								onClick={() => setSelectedPlan(product)}
+							>
 								{product.name}
 							</div>
 						))}
 					</div>
 
-					<Table products={products} />
+					<Table products={products} selectedPlan={selectedPlan} />
 					<button>Subscribe</button>
 				</div>
 			</main>
