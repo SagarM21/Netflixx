@@ -2,8 +2,13 @@ import Head from "next/head";
 import { CheckIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import useAuth from "../hooks/useAuth";
+import { Product } from "@stripe/firestore-stripe-payments";
 
-function Plans() {
+interface Props {
+	products: Product[];
+}
+
+function Plans({ products }: Props) {
 	const { logout } = useAuth();
 	return (
 		<div>
@@ -51,7 +56,9 @@ function Plans() {
 				<div className='mt-4 flex flex-col space-y-4'>
 					<div className='flex w-full items-center justify-center self-end md:w-3/5'>
 						{/* PLANS */}
-						
+						{products.map((product) => (
+							<div key={product.id} className='planBox'>{product.name}</div>
+						))}
 					</div>
 
 					{/* TABLE */}
