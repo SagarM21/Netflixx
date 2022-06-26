@@ -2,6 +2,7 @@ import { getProducts, Product } from "@stripe/firestore-stripe-payments";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import Membership from "../components/Membership";
 import useAuth from "../hooks/useAuth";
 import useSubscription from "../hooks/useSubscription";
 import payments from "../lib/stripe";
@@ -47,7 +48,7 @@ function Account({ products }: Props) {
 						</p>
 					</div>
 				</div>
-				{/* <Membership /> */}
+				<Membership />
 
 				<div className='mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0 md:pb-0'>
 					<h4 className='text-lg text-[gray]'>Plan Details</h4>
