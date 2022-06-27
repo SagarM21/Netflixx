@@ -7,7 +7,14 @@ import {
 } from "@heroicons/react/outline";
 import { PlusIcon } from "@heroicons/react/outline";
 import MuiModal from "@mui/material/Modal";
-import { deleteDoc, doc, setDoc } from "firebase/firestore";
+import {
+	collection,
+	deleteDoc,
+	doc,
+	DocumentData,
+	onSnapshot,
+	setDoc,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaPlay } from "react-icons/fa";
@@ -16,7 +23,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { modalState, movieState } from "../atoms/modalAtom";
 import { db } from "../firebase";
 import useAuth from "../hooks/useAuth";
-import { Element, Genre } from "../typings";
+import { Element, Genre, Movie } from "../typings";
 
 function Modal() {
 	const [showModal, setShowModal] = useRecoilState(modalState);
@@ -25,6 +32,7 @@ function Modal() {
 	const [genres, setGenres] = useState<Genre[]>([]);
 	const [muted, setMuted] = useState(true);
 	const [addedToList, setAddedToList] = useState(false);
+	const [movies, setMovies] = useState<DocumentData[] | Movie[]>([]);
 	const { user } = useAuth();
 
 	const toastStyle = {
@@ -65,6 +73,25 @@ function Modal() {
 
 		fetchMovie();
 	}, [movie]);
+
+	// Find all the movies in the user's list
+	useEffect(() => {
+		if (user) {
+			return onSnapshot(
+				collection(db, "customers", user.uid, "myList"),
+				(snapshot) => setMovies(snapshot.docs)
+			);
+		}
+	}, [db, movie?.id]);
+
+	// Check if the movie is already in the user's list
+	useEffect(
+		() =>
+			setAddedToList(
+				movies.findIndex((result) => result.data().id === movie?.id) !== -1
+			),
+		[movies]
+	);
 
 	// For this to work i have updated the rules of firebase, added these lines of code to work:
 	//   match /myList/{id} {
