@@ -129,7 +129,7 @@ function Modal() {
 		}
 	};
 
-	console.log(handleList);
+	//console.log(handleList);
 
 	const handleClose = () => {
 		setShowModal(false);
