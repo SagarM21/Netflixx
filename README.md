@@ -21,3 +21,15 @@ pnpm create next-app --example with-tailwindcss with-tailwindcss-app
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+
+## Functionalities
+
+1. SSR - banner
+2. TMDB API for playing trailers
+3. Authentication using Firebase
+4. Payment using Stripe which includes includes buying the membership, updating it, renewing it or cancelling it.
+5. Used react hot toast for displaying message when user add a movie to its list.
+
+## To Run On Your Device
+
+type 'npm run dev' in the terminal
