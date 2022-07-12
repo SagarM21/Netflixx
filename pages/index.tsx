@@ -55,7 +55,7 @@ const Home = ({
 			}`}
 		>
 			<Head>
-				<title>Home - Netflix</title>
+				<title>Fintract Global</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<Header />
